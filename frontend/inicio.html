@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Ilha da Sorte</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="inicio.html">Ilha da Sorte</a>
+    <a class="btn btn-outline-light btn-sm" href="meus_bilhetes.html">Meus Bilhetes</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h3 class="fw-bold mb-4">🎯 Rifas Ativas</h3>
+  <div id="rifas" class="row"></div>
+</div>
+
+<script>
+// Busca rifas ativas no backend
+fetch("/rifas")
+  .then(r => r.json())
+  .then(data => {
+    const div = document.getElementById("rifas");
+    data.forEach(rifa => {
+      div.innerHTML += `
+        <div class="col-md-4 mb-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="fw-bold">${rifa.titulo}</h5>
+              <p>${rifa.descricao}</p>
+              <a href="rifa_detail.html?id=${rifa.id}" class="btn btn-success w-100">
+                Participar
+              </a>
+            </div>
+          </div>
+        </div>`;
+    });
+  });
+</script>
+
+</body>
+</html>
